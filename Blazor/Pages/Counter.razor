@@ -47,8 +47,9 @@
 }
 
 @functions {
-    string left = "left1,left2,left3\r\na\r\nb\r\nc,c,c";
-    string right = "right\r\na,b\r\nxx\r\nc,c,c";
+    string crlf = Environment.NewLine;
+    string left = $"left1,left2,left3{Environment.NewLine}a{Environment.NewLine}b{Environment.NewLine}c,c,c";
+    string right = $"right{Environment.NewLine}a,b{Environment.NewLine}xx{Environment.NewLine}c,c,c";
     decimal cellWidth = 5;
     int rowCounter = 0;
     int cellCounter = 0;
