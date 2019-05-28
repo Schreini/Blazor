@@ -26,7 +26,6 @@
 
                 @foreach (var cell in row.Cells)
                 {
-                    Console.WriteLine($"coords: ({rowCounter},{cellCounter}); match: {cell.IsMatch}; left: {cell.Left.Original}; right: {cell.Right.Original}");
                     if (cell.IsMatch)
                     {
                         <td colspan="2" class="bg-success" width="@(cellWidth * 2)%">
@@ -64,8 +63,6 @@
 
     void Diff()
     {
-        Console.WriteLine(left.Replace("\r", "#cr#").Replace("\n", "#lf#"));
-        Console.WriteLine(Environment.NewLine.Replace("\r", "#cr#").Replace("\n", "#lf#"));
         CsvDiff.Differ differ = new CsvDiff.Differ();
         diffResult = differ.Diff(left, right);
     }
