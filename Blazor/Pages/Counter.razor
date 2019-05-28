@@ -1,49 +1,56 @@
 ﻿@page "/counter"
 
-<textarea rows="10" id="txtLeft" bind="@left" />
-<textarea rows="10" id="txtRight" bind="@right" />
+<div class="row">
+    <div class="col-sm">
+        Left Text:
+        <textarea class="w-100" rows="10" id="txtLeft" bind="@left" />
+    </div>
+    <div class="col-sm">
+        Right Text:
+        <textarea class="w-100" rows="10" id="txtRight" bind="@right" />
+    </div>
+</div>
 
-
-<button class="btn btn-primary" onclick="@Diff">Click me</button>
+<button class="btn btn-primary" onclick="@Diff">Create Diff</button>
 
 @if (diffResult != null)
 {
     rowCounter = 0;
-<table border="1" width="100%">
-    
-    @foreach (CsvDiff.DiffResultRow row in diffResult.Rows)
-    {
-        cellWidth = 100 / (row.Cells.Count()*2);
-        cellCounter = 0;
-    <tr>
+    <table border="1" width="100%">
 
-        @foreach (var cell in row.Cells)
+        @foreach (CsvDiff.DiffResultRow row in diffResult.Rows)
         {
-            Console.WriteLine($"coords: ({rowCounter},{cellCounter}); match: {cell.IsMatch}; left: {cell.Left.Original}; right: {cell.Right.Original}");
-            if (cell.IsMatch)
-            {
-                <td colspan="2" class="bg-success" width="@(cellWidth * 2)%">
-                    @cell.Left.Original
-                </td>
-            }
-            else
-            {
-                <td class="bg-danger" width="@(cellWidth)%">
-                    @cell.Left.Original
-                </td>
-                <td class="bg-danger" width="@(cellWidth)%">
-                    @cell.Right.Original
-                </td>
-            }
-            cellCounter = cellCounter + 1; 
-        }
+            cellWidth = 100 / (row.Cells.Count() * 2);
+            cellCounter = 0;
+            <tr>
 
-        @{
-            rowCounter = rowCounter + 1;
+                @foreach (var cell in row.Cells)
+                {
+                    Console.WriteLine($"coords: ({rowCounter},{cellCounter}); match: {cell.IsMatch}; left: {cell.Left.Original}; right: {cell.Right.Original}");
+                    if (cell.IsMatch)
+                    {
+                        <td colspan="2" class="bg-success" width="@(cellWidth * 2)%">
+                            @cell.Left.Original
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="bg-danger" width="@(cellWidth)%">
+                            @cell.Left.Original
+                        </td>
+                        <td class="bg-danger" width="@(cellWidth)%">
+                            @cell.Right.Original
+                        </td>
+                    }
+                    cellCounter = cellCounter + 1;
+                }
+
+                @{
+                    rowCounter = rowCounter + 1;
+                }
+            </tr>
         }
-    </tr>
-    }
-</table>
+    </table>
 }
 
 @functions {
